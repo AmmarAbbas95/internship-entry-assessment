@@ -11,78 +11,90 @@ Write a program in the language of your choice where:
 
 1. The iteration number (starting from 1), followed by a random number between 1 and 100, is printed 100 times.
 
-//Java program that prints random number between 1 and 100.
+//Go Lang program that prints random number between 1 and 100.
 
-import java.util.Random;
+package main
 
-public class RandomNumberPrinter {
+import ("fmt"
+        "math/rand"
+        "time"
+)
 
-    public static void main(String[] args) {
+func main(){
+    //seed the random number generator
+    rand.Seed(time.Now().UnixNano())
 
-        Random random = new Random();
-        System.out.println("Random numbers");
+    //Loop 100 times
+    for i :=1, i<=100; i++{
+        //Generate a random number between 1 and 100
 
-        for (int i = 1; i <= 100; i++) {
-            int randomNumber = random.nextInt(100) + 1; // Random number generated between 1 and 100
-            System.out.println(i + ": " + randomNumber);
-        }
+        randomNumber := rand.Intn(100) + 1
+
+        //Print the iteration number and random number
+        fmt.OPrintf("%d %d\n", i, randomNumber)
     }
-
 }
-
 ____________________________________________________________________________________________________________________
 
 
 
 2. After every 5 iterations, write an additional separator (e.g., `---`).
 
-import java.util.Random;
+package main
 
-public class RandomNumberPrinter {
+import ("fmt"
+        "math/rand"
+        "time"
+)
 
-    public static void main(String[] args) {
+func main(){
+    //seed the rendom number generator
+    rand.Seed(time.Now().UnixNano())\
 
-        Random random = new Random();
-        System.out.println("Random numbers");
+    //Loop 100 times
+    for i := 1; i <= 100; i++{
+        //Generate a random number between 1 and 100
+        randomNumber := rand.Intn(100) + 1
+        //Print the iteration number and random number
+        fmt.Printf("%d %d\n", i, randomNumner)
 
-        for (int i = 1; i <= 100; i++) {
-
-            int randomNumber = random.nextInt(100) + 1; // Random number generated between 1 and 100
-            System.out.println(i + ": " + randomNumber);
-
-            if(i%5 == 0){
-               System.out.println("--------") // Separator is added after every 5 numbers
-            }
-
+        //After enery 5 iterations, print a separator
+        if i%5 == 0 {
+            fmt.Println("---")
         }
     }
 }
-
 ____________________________________________________________________________________________________________________
 
 3. Write “Lucky number!” after every random number that is divisible by 7.
 
-import java.util.Random;
+package main
 
-public class RandomNumberPrinter {
-    public static void main(String[] args) {
-        Random random = new Random();
-        
- 
-        for (int i = 1; i <= 100; i++) {
-            
-            int randomNumber = random.nextInt(100) + 1; // Random number generated between 1 and 100
-            System.out.println( i + ": " + randomNumber);
-            
-            if(randomNumber % 7 == 0){
-                System.out.println("Lucky number! " + randomNumber);
-            }
-            
+import ("fmt"
+        "math/rand"
+        "time"
+)
+
+func main(){
+    //seed the rendom number generator
+
+    rand.Seed(time.Now().UnixNano())
+
+    //Loop 100 times
+    for i := 1; i <= 100; i++{
+        //Generate a random number between 1 and 100
+        randomNumber := rand.Intn(100) + 1
+        //Print the iteration number and random number
+        fmt.Printf("%d %d\n", i, randomNumner)
+
+        //Print "Luck Number!" if the number is divided by 7
+        if randomNumber%7 == 0 {
+            fmt.Printf("Licky Number!")
+        } else {
+            fmt.Println()
         }
     }
 }
-
-
 ---
 
 ## Exercise 2
@@ -180,21 +192,60 @@ ________________________________________________________________________________
    Based on the class diagram below, provide an implementation in any object-oriented programming language of your choice.
    
 ```mermaid
-classDiagram
+#include <iostream>
+#include<string>
 
-class A {
-	# Name : string
-	+ PrintName() void
-}
+using namespace std;
 
-<<abstract>> A
+//Abstract base class A
+class A{
+protected:
+    string Name;
 
-class B {
-	- PrintName(message : string) void
-}
+public:
+    A(const string& name) : Name(name){}
+    virtual void PrintName() = 0; //pure virtual method
+    virtual ~A(){}
+};
 
-class C {
-	+ PrintName(message : string) void
+//Class B inherits A
+class B : public A {
+    public:
+        B(const string& name) : A(name) {}
+
+        void PrintName() override {
+            PrintNamePrivate(Name);
+        }
+    
+    private:
+        void PrintNamePrivate(const string& message){
+            count<< message << endl;
+        }
+};
+
+//Class C inherits B
+class C : public B {
+	public:
+        C(const string& name) : B(name){}
+
+        //Public override of PrintName with string parameter
+        void PrintName(const string& message){
+            count <<message << endl;
+        }
+};
+
+//Main function to test the classes
+int main(){
+    D d("object D");
+    d.PrintName(); //output: object D
+
+    B b("object B");
+    b.PrintName(); //output: object B
+
+    C c("object C");
+    c.PrintName("Hello from C"); //output: Hello from C
+
+    return 0;
 }
 
 D --|> A
